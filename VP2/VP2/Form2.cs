@@ -12,9 +12,11 @@ namespace VP_Assignment_2
 {
     public partial class Form2 : Form
     {
+
         public Form2()
         {
             InitializeComponent();
+
             button1.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
@@ -43,14 +45,16 @@ namespace VP_Assignment_2
             var fileStream = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
             {
-                int i = 0;
-               while(i <=streamReader.BaseStream.Length-686)
+
+                string x = streamReader.ReadLine();
+                while (x != null)
                 {
-                    dataGridView1.Rows.Add(streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine());
-                   
-                    i++;
+
+                    dataGridView1.Rows.Add(x, streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine());
+
+                    x = streamReader.ReadLine();
                 }
-             
+
             }
         }
 
@@ -74,6 +78,10 @@ namespace VP_Assignment_2
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            panel1.Visible = true;
+            panel3.Visible = false;
+            panel1.BringToFront();
             button1.BackColor = Color.FromArgb(32, 91, 94);
             button2.BackColor = Color.FromArgb(25, 51, 54);
             button3.BackColor = Color.FromArgb(25, 51, 54);
@@ -83,12 +91,18 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button1.Text;
-           
+
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            panel3.Visible = true;
+
+
+
+
             button2.BackColor = Color.Aqua;
             button1.BackColor = Color.FromArgb(25, 51, 54);
             button2.BackColor = Color.FromArgb(32, 91, 94);
@@ -99,6 +113,16 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button2.Text;
+
+            dataGridView2.ColumnCount = 6;
+            dataGridView2.Columns[0].Name = "Student ID";
+            dataGridView2.Columns[1].Name = "Student Name";
+            dataGridView2.Columns[2].Name = "Semester";
+
+            dataGridView2.Columns[3].Name = "CGPA";
+            dataGridView2.Columns[4].Name = "Department";
+            dataGridView2.Columns[5].Name = "University";
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -171,11 +195,11 @@ namespace VP_Assignment_2
 
         }
 
-       
+
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -194,10 +218,119 @@ namespace VP_Assignment_2
                 streamWriter.WriteLine(textBox6.Text);
 
 
-                  
+
 
             }
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+            textBox6.Clear();
+        }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (comboBox1.SelectedIndex == 2|| comboBox1.SelectedIndex == 1|| comboBox1.SelectedIndex == 0)
+            {
+                textBox7.Clear();
+            }
+
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 0)
+            {
+                dataGridView2.Rows.Clear();
+                dataGridView2.Refresh();
+                var fileStream = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                {
+
+                    string a = streamReader.ReadLine();
+                    string b, c, d, g, f;
+                    while (a != null)
+                    {
+                        b = streamReader.ReadLine();
+                        c = streamReader.ReadLine();
+                        d = streamReader.ReadLine();
+                        g = streamReader.ReadLine();
+                        f = streamReader.ReadLine();
+
+                        if (a == textBox7.Text)
+                        {
+                            dataGridView2.Rows.Add(a, b, c, d, g, f);
+                            break;
+                        }
+                        a = streamReader.ReadLine();
+                    }
+                    if (a == null)
+                    {
+                        MessageBox.Show("No Data Exist");
+                    }
+
+                }
+            }
+          else  if (comboBox1.SelectedIndex == 1)
+            {
+                dataGridView2.Rows.Clear();
+                dataGridView2.Refresh();
+                var fileStream = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                {
+
+                    string a = streamReader.ReadLine();
+                    string b, c, d, g, f;
+                    while (a != null)
+                    {
+                        b = streamReader.ReadLine();
+                        c = streamReader.ReadLine();
+                        d = streamReader.ReadLine();
+                        g = streamReader.ReadLine();
+                        f = streamReader.ReadLine();
+
+                        if (b == textBox7.Text)
+                        {
+                            dataGridView2.Rows.Add(a, b, c, d, g, f);
+                            break;
+                        }
+                        a = streamReader.ReadLine();
+                    }
+                    if (a == null)
+                    {
+                        MessageBox.Show("No Data Exist");
+                    }
+
+                }
+            }
+            else if (comboBox1.SelectedIndex == 2)
+            {
+                textBox7.Clear();
+                dataGridView2.Rows.Clear();
+                dataGridView2.Refresh();
+                var fileStream = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                {
+
+                    string a = streamReader.ReadLine();
+                    string b, c, d, g, f;
+                    while (a != null)
+                    {
+                        b = streamReader.ReadLine();
+                        c = streamReader.ReadLine();
+                        d = streamReader.ReadLine();
+                        g = streamReader.ReadLine();
+                        f = streamReader.ReadLine();
+
+                       
+                            dataGridView2.Rows.Add(a, b, c, d, g, f);
+
+                        a = streamReader.ReadLine();
+                    }
+
+                }
+            }
         }
     }
 }
