@@ -26,12 +26,6 @@ namespace VP_Assignment_2
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            Form2 f = new Form2();
-            f.Show();
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -46,12 +40,13 @@ namespace VP_Assignment_2
                 y1 = streamReader.ReadLine();
                 if (x == x1 && y == y1)
                 {
-                    MessageBox.Show("Find");
+                    Form2 f = new Form2();
+                    f.Show();
                 }
             }
 
         }
 
-        
+      
     }
 }

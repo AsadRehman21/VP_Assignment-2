@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace VP_Assignment_2
 {
     public partial class Form2 : Form
@@ -32,6 +32,26 @@ namespace VP_Assignment_2
             button8.FlatStyle = FlatStyle.Flat;
             button8.FlatAppearance.BorderSize = 0;
 
+            dataGridView1.ColumnCount = 6;
+            dataGridView1.Columns[0].Name = "Student ID";
+            dataGridView1.Columns[1].Name = "Student Name";
+            dataGridView1.Columns[2].Name = "Semester";
+
+            dataGridView1.Columns[3].Name = "CGPA";
+            dataGridView1.Columns[4].Name = "Department";
+            dataGridView1.Columns[5].Name = "University";
+            var fileStream = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                int i = 0;
+               while(i <=streamReader.BaseStream.Length-686)
+                {
+                    dataGridView1.Rows.Add(streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine(), streamReader.ReadLine());
+                   
+                    i++;
+                }
+             
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -63,6 +83,8 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button1.Text;
+           
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -142,6 +164,40 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(32, 91, 94);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button7.Text;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+       
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string[] row = new string[] { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text };
+            dataGridView1.Rows.Add(row);
+            var fileStream = @"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt";
+            using (StreamWriter streamWriter = File.AppendText(fileStream))
+            {
+
+                streamWriter.WriteLine(textBox1.Text);
+                streamWriter.WriteLine(textBox2.Text);
+                streamWriter.WriteLine(textBox3.Text);
+                streamWriter.WriteLine(textBox4.Text);
+                streamWriter.WriteLine(textBox5.Text);
+                streamWriter.WriteLine(textBox6.Text);
+
+
+                  
+
+            }
+
         }
     }
 }
