@@ -181,6 +181,7 @@ namespace VP_Assignment_2
 
         private void button4_Click(object sender, EventArgs e)
         {
+            dataGridView4.Rows.Clear();
             panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
@@ -209,7 +210,6 @@ namespace VP_Assignment_2
 
                 while (x != null)
                 {
-                   
                      streamReader.ReadLine();
                     streamReader.ReadLine();
                     cg4=Convert.ToDouble( streamReader.ReadLine());
@@ -243,7 +243,7 @@ namespace VP_Assignment_2
             var fileStrea = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
             using (var streamReader = new StreamReader(fileStrea, Encoding.UTF8))
             {
-
+                int s=0, t=0,r=0;
                 string x = streamReader.ReadLine();
                 string j, k, l, m, n;
                 while (x != null)
@@ -253,9 +253,26 @@ namespace VP_Assignment_2
                     l = streamReader.ReadLine();
                     m = streamReader.ReadLine();
                     n = streamReader.ReadLine();
-                    if (a == Convert.ToDouble(l) || b == Convert.ToDouble(l) || c == Convert.ToDouble(l))
+                  
+                    if (a == Convert.ToDouble(l) &&r==0)
                     {
+                        streamReader.BaseStream.Position = 0;
+                        s = 1;
+                        r = 1;
                         dataGridView4.Rows.Add(x, j, k, l, m, n);
+                    }
+                    if (b == Convert.ToDouble(l) && s==1)
+                    {
+                        streamReader.BaseStream.Position = 0;
+                        t = 1;
+                        dataGridView4.Rows.Add(x, j, k, l, m, n);
+                    }
+                    if (c == Convert.ToDouble(l)&&t==1)
+                    {
+                        streamReader.BaseStream.Position = 0;
+
+                        dataGridView4.Rows.Add(x, j, k, l, m, n);
+                        break;
                     }
                     x = streamReader.ReadLine();
                 }
