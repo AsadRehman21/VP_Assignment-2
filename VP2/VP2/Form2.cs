@@ -8,15 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Windows;
+
 namespace VP_Assignment_2
 {
     public partial class Form2 : Form
     {
-
+        List<string> na = new List<string>();
+        List<string> ra = new List<string>();
         public Form2()
         {
             InitializeComponent();
-
+          
             button1.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
@@ -79,7 +82,7 @@ namespace VP_Assignment_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            panel7.Visible = false;
             panel6.Visible = false;
             panel1.Visible = true;
             panel3.Visible = false;
@@ -100,6 +103,7 @@ namespace VP_Assignment_2
 
         private void button2_Click(object sender, EventArgs e)
         {
+            panel7.Visible = false;
             panel6.Visible = false;
             panel3.Visible = true;
             panel1.Visible = false;
@@ -133,7 +137,7 @@ namespace VP_Assignment_2
         private void button3_Click(object sender, EventArgs e)
         {
 
-
+            panel7.Visible = false;
             panel6.Visible = false;
             panel1.Visible = false;
             panel3.Visible = false;
@@ -185,6 +189,7 @@ namespace VP_Assignment_2
             panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
+            panel7.Visible = false;
             panel6.Visible = true;
             button1.BackColor = Color.FromArgb(25, 51, 54);
             button2.BackColor = Color.FromArgb(25, 51, 54);
@@ -280,6 +285,16 @@ namespace VP_Assignment_2
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            panel1.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = true;
+            panel7.AutoScroll = false;
+            panel7.HorizontalScroll.Visible = false;
+            panel7.HorizontalScroll.Maximum = 0;
+            panel7.AutoScroll = true;
+     
             button1.BackColor = Color.FromArgb(25, 51, 54);
             button2.BackColor = Color.FromArgb(25, 51, 54);
             button3.BackColor = Color.FromArgb(25, 51, 54);
@@ -289,6 +304,78 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button5.Text;
+      
+            var fileStrea = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStrea, Encoding.UTF8))
+            {
+                
+                string x = streamReader.ReadLine();
+            
+                while (x != null)
+                {
+                    na.Add(streamReader.ReadLine());
+                     streamReader.ReadLine();
+                     streamReader.ReadLine();
+                     streamReader.ReadLine();
+                     streamReader.ReadLine();
+                    
+                   
+                    x = streamReader.ReadLine();
+                }
+            }
+            RadioButton[] r=new RadioButton[na.Count];
+            RadioButton[] t=new RadioButton[na.Count];
+            int i = 0;
+            
+            foreach (string x in na)
+            {
+              Label b = new Label();
+                b.Top = i * 38;
+                b.Left = 400;
+                b.Size = new Size(500, 30);
+                
+                panel7.Controls.Add(b);
+                Label l = new Label();
+                panel7.Controls.Add(l);
+                l.Top = i * 38;
+                l.Left = 100;
+                l.Text =x;
+
+                r[i]= new RadioButton();
+               b.Controls.Add(r[i]);
+               
+                r[i].Left = 50;
+                r[i].Text = "Present";
+                r[i].Size = new Size(100, 30);
+                r[i].Name = "x" + i;
+                r[i].Checked = false;
+                
+                r[i].CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
+               t[i] = new RadioButton();
+               b.Controls.Add(t[i]);
+               
+                t[i].Left = 250;
+                t[i].Size = new Size(100, 30);
+                t[i].Text = "Absent";
+                
+                t[i].Checked = true;
+                i++;
+            }
+         
+
+
+        }
+
+        private void radioButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+
+            if (radioButton.Checked)
+            {
+                ra.Add(radioButton.Text);
+                MessageBox.Show(radioButton.Text);
+            }
+           
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -518,6 +605,16 @@ namespace VP_Assignment_2
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel7_Paint(object sender, PaintEventArgs e)
+        {
+          
         }
     }
 }
