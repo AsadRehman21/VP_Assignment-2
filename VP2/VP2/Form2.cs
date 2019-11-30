@@ -14,12 +14,16 @@ namespace VP_Assignment_2
 {
     public partial class Form2 : Form
     {
+      public int s = 0;
         List<string> na = new List<string>();
         List<string> ra = new List<string>();
+        RadioButton[] r = new RadioButton[0];
+        RadioButton[] t = new RadioButton[0];
+
         public Form2()
         {
             InitializeComponent();
-          
+           
             button1.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
@@ -64,6 +68,13 @@ namespace VP_Assignment_2
 
         private void button6_Click(object sender, EventArgs e)
         {
+            dataGridView5.Rows.Clear();
+            panel1.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = true;
             button1.BackColor = Color.FromArgb(25, 51, 54);
             button2.BackColor = Color.FromArgb(25, 51, 54);
             button3.BackColor = Color.FromArgb(25, 51, 54);
@@ -73,15 +84,33 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button6.Text;
+            dataGridView5.ColumnCount = 2;
+            dataGridView5.Columns[0].Name = "Student Name";
+            dataGridView5.Columns[1].Name = "Attendance ";
+
+            if (na.Count != 0 && ra.Count != 0)
+            {
+                for (int i = 0; i < na.Count; i++)
+                {
+                    dataGridView5.Rows.Add(na[i], ra[i]);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Mark Attendance First");
+            }
+            
+            
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            panel8.Visible = false;
             panel7.Visible = false;
             panel6.Visible = false;
             panel1.Visible = true;
@@ -103,6 +132,7 @@ namespace VP_Assignment_2
 
         private void button2_Click(object sender, EventArgs e)
         {
+            panel8.Visible = false;
             panel7.Visible = false;
             panel6.Visible = false;
             panel3.Visible = true;
@@ -136,7 +166,7 @@ namespace VP_Assignment_2
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            panel8.Visible = false;
             panel7.Visible = false;
             panel6.Visible = false;
             panel1.Visible = false;
@@ -186,6 +216,8 @@ namespace VP_Assignment_2
         private void button4_Click(object sender, EventArgs e)
         {
             dataGridView4.Rows.Clear();
+            panel8.Visible = false;
+            panel8.Visible = false;
             panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
@@ -285,11 +317,15 @@ namespace VP_Assignment_2
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            
+            
+            panel8.Visible = false;
             panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
             panel6.Visible = false;
             panel7.Visible = true;
+            
             panel7.AutoScroll = false;
             panel7.HorizontalScroll.Visible = false;
             panel7.HorizontalScroll.Maximum = 0;
@@ -304,79 +340,71 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button5.Text;
-      
-            var fileStrea = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
-            using (var streamReader = new StreamReader(fileStrea, Encoding.UTF8))
+            if (s == 0)
             {
-                
-                string x = streamReader.ReadLine();
-            
-                while (x != null)
+
+                var fileStrea = new FileStream(@"C:\Users\Asad Rehman\Source\Repos\AsadRehman21\VP_Assignment-2\VP2\VP2\bin\Debug\Log1.txt", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStrea, Encoding.UTF8))
                 {
-                    na.Add(streamReader.ReadLine());
-                     streamReader.ReadLine();
-                     streamReader.ReadLine();
-                     streamReader.ReadLine();
-                     streamReader.ReadLine();
-                    
-                   
-                    x = streamReader.ReadLine();
+
+                    string x = streamReader.ReadLine();
+
+                    while (x != null)
+                    {
+                        na.Add(streamReader.ReadLine());
+                        streamReader.ReadLine();
+                        streamReader.ReadLine();
+                        streamReader.ReadLine();
+                        streamReader.ReadLine();
+
+
+                        x = streamReader.ReadLine();
+                    }
                 }
+                r = new RadioButton[na.Count];
+                t = new RadioButton[na.Count];
+                int i = 0;
+
+                foreach (string x in na)
+                {
+                    Label b = new Label();
+                    b.Top = i * 38;
+                    b.Left = 400;
+                    b.Size = new Size(500, 30);
+
+                    panel7.Controls.Add(b);
+                    Label l = new Label();
+                    panel7.Controls.Add(l);
+                    l.Top = i * 38;
+                    l.Left = 100;
+                    l.Text = x;
+
+                    r[i] = new RadioButton();
+                    b.Controls.Add(r[i]);
+
+                    r[i].Left = 50;
+                    r[i].Text = "Present";
+                    r[i].Size = new Size(100, 30);
+                    r[i].Name = "x" + i;
+                    r[i].Checked = false;
+
+
+                    t[i] = new RadioButton();
+                    b.Controls.Add(t[i]);
+
+                    t[i].Left = 250;
+                    t[i].Size = new Size(100, 30);
+                    t[i].Text = "Absent";
+
+                    t[i].Checked = true;
+                    i++;
+                }
+
+                s = 1;
             }
-            RadioButton[] r=new RadioButton[na.Count];
-            RadioButton[] t=new RadioButton[na.Count];
-            int i = 0;
-            
-            foreach (string x in na)
-            {
-              Label b = new Label();
-                b.Top = i * 38;
-                b.Left = 400;
-                b.Size = new Size(500, 30);
-                
-                panel7.Controls.Add(b);
-                Label l = new Label();
-                panel7.Controls.Add(l);
-                l.Top = i * 38;
-                l.Left = 100;
-                l.Text =x;
-
-                r[i]= new RadioButton();
-               b.Controls.Add(r[i]);
-               
-                r[i].Left = 50;
-                r[i].Text = "Present";
-                r[i].Size = new Size(100, 30);
-                r[i].Name = "x" + i;
-                r[i].Checked = false;
-                
-                r[i].CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
-               t[i] = new RadioButton();
-               b.Controls.Add(t[i]);
-               
-                t[i].Left = 250;
-                t[i].Size = new Size(100, 30);
-                t[i].Text = "Absent";
-                
-                t[i].Checked = true;
-                i++;
-            }
-         
-
-
         }
 
-        private void radioButtons_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton = sender as RadioButton;
-
-            if (radioButton.Checked)
-            {
-                ra.Add(radioButton.Text);
-                MessageBox.Show(radioButton.Text);
-            }
-           
-        }
+       
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -389,7 +417,11 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(25, 51, 54);
             button8.BackColor = Color.FromArgb(32, 91, 94);
             label1.Text = button8.Text;
-        }
+            Form1 f = new Form1();
+            f.Show();
+            this.Hide();
+   
+}
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -402,6 +434,14 @@ namespace VP_Assignment_2
             button7.BackColor = Color.FromArgb(32, 91, 94);
             button8.BackColor = Color.FromArgb(25, 51, 54);
             label1.Text = button7.Text;
+            DialogResult d = MessageBox.Show("Are you sure you want to Exit", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (d == DialogResult.Yes)
+
+            {
+                Close();
+            }
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -615,6 +655,30 @@ namespace VP_Assignment_2
         private void panel7_Paint(object sender, PaintEventArgs e)
         {
           
+        }
+
+        private void dataGridView5_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+           
+            for (int i=0;i<na.Count;i++)
+            {
+                if(r[i].Checked==true)
+                {
+                    ra.Add(r[i].Text);
+                }
+                else
+                {
+                    ra.Add(t[i].Text);
+                }
+
+
+            }
+                     MessageBox.Show("Attendance Submitted");
         }
     }
 }

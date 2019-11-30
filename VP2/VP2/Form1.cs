@@ -42,6 +42,7 @@ namespace VP_Assignment_2
                 {
                     Form2 f = new Form2();
                     f.Show();
+                    this.Hide();
                 }
             }
 
